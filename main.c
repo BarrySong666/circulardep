@@ -5,15 +5,15 @@
 int main(int argc, char **argv)
 {
 	void (*func)(void);
-	void *handle = dlopen ("./liba.so", RTLD_LAZY);
+	void *handle = dlopen ("liba.so", RTLD_LAZY | RTLD_GLOBAL);
 	if (!handle) {
 		exit(1);
 	}
-
         char *error;
 	func = dlsym(handle, "a_ext_func");
 
 	func();
+
 	while(1);
 	dlclose(handle);
 }

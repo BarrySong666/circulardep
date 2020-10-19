@@ -4,20 +4,20 @@
 #include <stdlib.h> 
 #include <dlfcn.h> 
 
-void helperinit(void) __attribute__((constructor)); 
+void b_helperinit(void) __attribute__((constructor)); 
 
-void helperinit(void) 
+void b_helperinit(void) 
 {
 	printf("b constuctor\n");
 } 
 
 void b_call_a(void)
 {
-	a_ext_func();
+	a_ext1();
 }
 
 void b_ext_func(void)
 {
 	printf("b ext func\n");
-	a_ext_func();
+	//a_ext_func();
 }

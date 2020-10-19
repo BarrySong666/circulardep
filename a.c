@@ -4,14 +4,17 @@
 #include <stdlib.h> 
 #include <dlfcn.h> 
 
-void helperinit(void) __attribute__((constructor)); 
+void a_helperinit(void) __attribute__((constructor)); 
 
 void (*b_call_a)(void);
 
-void helperinit(void) 
+void a_helperinit(void) 
 {
 	printf("a lib contrustor\n");
+}
 
+void a_ext_func(void)
+{
 	void (*func)(void);
 	void *handle = dlopen ("./b.so", RTLD_LAZY);
 	if (!handle) {
@@ -21,12 +24,14 @@ void helperinit(void)
         char *error;
 	func = dlsym(handle, "b_ext_func");
 	b_call_a = dlsym(handle, "b_call_a");
+	b_call_a();
 	func();
 	dlclose(handle);
+
+	printf("a ext func\n");
 }
 
-void a_ext_func(void)
+void a_ext1(void)
 {
-	printf("a ext func\n");
-	//b_call_a();
+	printf("a_ext1\n");
 }
